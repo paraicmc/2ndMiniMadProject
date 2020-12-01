@@ -61,7 +61,7 @@
         android:layout_marginTop="35dp"
         android:layout_marginEnd="27dp"
         android:text="0"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintEnd_toEndOf="@+id/tvDate"
         app:layout_constraintTop_toBottomOf="@+id/tvDate" />
 
@@ -77,7 +77,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/tvMetersDisplay2"
+        android:id="@+id/tvMeterDisplay"
         android:layout_width="26dp"
         android:layout_height="0dp"
         android:text="0"

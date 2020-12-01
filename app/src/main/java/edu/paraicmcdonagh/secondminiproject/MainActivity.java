@@ -3,6 +3,7 @@ package edu.paraicmcdonagh.secondminiproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -47,6 +48,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 counter.setText(String.valueOf(second));
             }
         };
+
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.putInt("stepCounter", Stepcounter);
+        editor.apply();
     }
 
 
@@ -55,10 +62,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     protected void onResume() {
         super.onResume();
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        Stepcounter = sharedPreferences.getInt("stepCounter", 0);
         // turn on the sensor
         mSensorManager.registerListener(this, mSensor,
                 SensorManager.SENSOR_DELAY_NORMAL);
     }
+
+
+
     /*
      * App running but not on screen - in the background
      */
@@ -84,8 +96,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public void doShowRun(View view) {
-        Intent intent = new Intent(this, ResultsPage.class);
-        startActivity(intent);
+        Intent resultspage = new Intent(view.getContext(), ResultsPage.class);
+        resultspage.putExtra("stepCounter", Stepcounter);
+        resultspage.putExtra("timer", counter.getText().toString());
+        startActivity(resultspage);
     }
 
     @Override
@@ -111,6 +125,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             tvStepsDisplay.setText(String.valueOf(Stepcounter));
             highLimit = false;
         }
+
+
 
 
     }
